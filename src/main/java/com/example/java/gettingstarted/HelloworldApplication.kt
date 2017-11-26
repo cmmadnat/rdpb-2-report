@@ -326,9 +326,14 @@ open class HelloworldApplication {
         return "Still surviving."
     }
 
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(HelloworldApplication::class.java, *args)
+        }
+
+    }
+
     @Autowired lateinit var studyCenterService: StudyCenterService
 }
 
-fun main(args: Array<String>) {
-    SpringApplication.run(HelloworldApplication::class.java, *args)
-}
