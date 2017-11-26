@@ -22,6 +22,8 @@ import com.example.java.gettingstarted.model.StudyCenterService
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder
 import net.sf.dynamicreports.report.builder.DynamicReports
 import net.sf.dynamicreports.report.builder.DynamicReports.*
+import net.sf.dynamicreports.report.builder.style.StyleBuilders
+import net.sf.dynamicreports.report.constant.HorizontalTextAlignment
 import net.sf.dynamicreports.report.constant.PageOrientation
 import net.sf.dynamicreports.report.constant.PageType
 import net.sf.dynamicreports.report.exception.DRException
@@ -33,6 +35,12 @@ import org.springframework.web.bind.annotation.RestController
 import java.io.IOException
 import javax.servlet.http.HttpServletResponse
 import javax.swing.table.DefaultTableModel
+import java.awt.Color.LIGHT_GRAY
+import net.sf.dynamicreports.report.builder.DynamicReports.stl
+import java.awt.Color
+import net.sf.dynamicreports.report.builder.DynamicReports.stl
+import net.sf.dynamicreports.report.constant.HorizontalAlignment
+
 
 @SpringBootApplication
 @RestController
@@ -73,7 +81,9 @@ open class HelloworldApplication {
     fun report1pdf(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllSufficiency()
-            val build = getReport1(list).toPdf(httpServletResponse.outputStream)
+            val build = getReport1(list)
+                    .pageFooter(cmp.pageXofY())
+                    .toPdf(httpServletResponse.outputStream)
         } catch (e: DRException) {
             e.printStackTrace()
         } catch (e: IOException) {
@@ -95,14 +105,26 @@ open class HelloworldApplication {
 
     }
 
+    val SARABUN = "Sarabun"
+
     private fun getReport1(sample: MutableList<StudyCenter>): JasperReportBuilder {
+        val fontName = stl.style().setFontName(SARABUN).setFontSize(12)
+        val header = stl.style().setFontName(SARABUN).bold().setFontSize(18)
+        val center = stl.style().setHorizontalTextAlignment(HorizontalTextAlignment.CENTER)
+
+        val boldStyle = stl.style(fontName).bold()
+        val boldCenteredStyle = stl.style(boldStyle)
+                .setHorizontalTextAlignment(HorizontalTextAlignment.CENTER)
+        val columnTitleStyle = stl.style(boldCenteredStyle)
+                .setBorder(stl.pen1Point())
+                .setBackgroundColor(Color.LIGHT_GRAY)
         sample.forEachIndexed { index: Int, studyCenter: StudyCenter -> studyCenter.index = index + 1 }
         return DynamicReports.report().columns(//add columns
                 //             title,     field name     data type
-                col.column("ลำดับ", "index", type.integerType()),
+                col.column("ลำดับ", "index", type.integerType()).setStyle(center),
                 col.column("ชื่อคน/ชื่อชุมชน/ชื่อกลุ่ม", "name", type.stringType()),
                 col.column("ด้าน/ประเภท/ชนิด", "type", type.stringType()),
-                col.column("รางวัล", "type", type.stringType()),
+                col.column("รางวัล", "type", type.stringType()).setStyle(center),
                 col.column("ปีที่จัดตั้ง", "year", type.integerType()),
                 col.column("พิกัดที่ตั้ง (Latitude/Longitude)", "location", type.stringType()),
                 col.column("ที่อยู่", "address", type.stringType()),
@@ -111,8 +133,10 @@ open class HelloworldApplication {
                 col.column("ผู้ประสานงาน", "contact", type.stringType()),
                 col.column("สถานะข้อมูล", "complete", type.stringType()))
                 .setDataSource(sample)
-                .title(cmp.text("ศูนย์เรียนรู้เศรษฐกิจพอเพียง")).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
-                .pageFooter(cmp.pageXofY())
+                .setTextStyle(fontName)
+                .setColumnTitleStyle(columnTitleStyle)
+                .highlightDetailEvenRows()
+                .title(cmp.text("ศูนย์เรียนรู้เศรษฐกิจพอเพียง").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
     }
 
     /**
