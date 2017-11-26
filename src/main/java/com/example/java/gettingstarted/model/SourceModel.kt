@@ -31,6 +31,7 @@ class Locationother {
     var lng: Float? = null
 
 }
+
 class SufficiencyStudyCenterSource {
 
     var id: String? = null
@@ -53,7 +54,7 @@ class SufficiencyStudyCenterSource {
     var files: List<File>? = null
     var status: Boolean? = null
     var province: String? = null
-
+    var complete: Boolean? = null
 }
 
 class RoyalStudyCenterSource {
@@ -80,6 +81,7 @@ class RoyalStudyCenterSource {
     var status: Boolean? = null
     var province: String? = null
 
+    var complete: Boolean? = null
 }
 
 class StudyCenterOtherSource {
@@ -109,7 +111,9 @@ class StudyCenterOtherSource {
     var status: Boolean? = null
     var province: String? = null
 
+    var complete: Boolean? = null
 }
+
 data class Wrapper(var knowledgeEconomy: List<SufficiencyStudyCenterSource> = listOf()) {
     val knowledgeDevelopment: List<RoyalStudyCenterSource> = listOf()
     val knowledgeOther: List<StudyCenterOtherSource> = listOf()

@@ -63,10 +63,23 @@ class StudyCenterServiceImpl : StudyCenterService {
 
     private fun convertSufficiency(knowledgeEconomy: List<SufficiencyStudyCenterSource>): List<StudyCenter> {
         return knowledgeEconomy.map {
+            val location: String = if (it.location?.lat != null && it.location?.lng != null) it.location?.lat.toString() + "," + it.location?.lng else "ไม่มีข้อมูล"
+
             StudyCenter(id = it.id!!.toLong(), name = it.name!!, detail = it.detail!!, address = it.address!!,
-                    type = it.type!!, mainType = "ศูนย์เรียนรู้เศรษฐกิจพอเพียง",
+                    type = it.type!!, mainType = "ศูนย์เรียนรู้เศรษฐกิจพอเพียง", year = it.year ?: 0, status = getStatus(it.status),
+                    contact = it.coordinator ?: "ไม่ระบุ", location = location, complete = getComplete(it.complete),
                     url = getUrl(it.id!!))
         }
+    }
+
+    fun getComplete(complete: Boolean?): String = when (complete) {
+        true -> "ครบถ้วน"
+        else -> "ไม่ครบถ้วน"
+    }
+
+    private fun getStatus(status: Boolean?): String = when (status) {
+        true -> "ศูนย์เรียนรู้"
+        else -> "พื้นที่เป้าหมาย"
     }
 
     private fun convertRoyalty(knowledgeDevelopment: List<RoyalStudyCenterSource>): List<StudyCenter> {

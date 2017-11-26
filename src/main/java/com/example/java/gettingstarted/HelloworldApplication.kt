@@ -19,6 +19,7 @@ package com.example.java.gettingstarted
 
 import com.example.java.gettingstarted.model.StudyCenter
 import com.example.java.gettingstarted.model.StudyCenterService
+import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ContentDisposition
 import net.sf.dynamicreports.jasper.builder.JasperReportBuilder
 import net.sf.dynamicreports.report.builder.DynamicReports
 import net.sf.dynamicreports.report.builder.DynamicReports.*
@@ -40,6 +41,7 @@ import net.sf.dynamicreports.report.builder.DynamicReports.stl
 import java.awt.Color
 import net.sf.dynamicreports.report.builder.DynamicReports.stl
 import net.sf.dynamicreports.report.constant.HorizontalAlignment
+import org.springframework.http.HttpHeaders
 
 
 @SpringBootApplication
@@ -96,6 +98,7 @@ open class HelloworldApplication {
     fun report1xls(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllSufficiency()
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.xlsx\"")
             val build = getReport1(list).toXlsx(httpServletResponse.outputStream)
         } catch (e: DRException) {
             e.printStackTrace()
