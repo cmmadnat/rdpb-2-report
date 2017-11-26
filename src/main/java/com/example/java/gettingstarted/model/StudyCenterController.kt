@@ -1,6 +1,5 @@
-package com.example.web
+package com.example.java.gettingstarted.model
 
-import com.example.model.*
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
 
