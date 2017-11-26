@@ -68,6 +68,7 @@ class StudyCenterServiceImpl : StudyCenterService {
             StudyCenter(id = it.id!!.toLong(), name = it.name!!, detail = it.detail!!, address = it.address!!,
                     type = it.type!!, mainType = "ศูนย์เรียนรู้เศรษฐกิจพอเพียง", year = it.year ?: 0, status = getStatus(it.status),
                     contact = it.coordinator ?: "ไม่ระบุ", location = location, complete = getComplete(it.complete),
+                    award = it.reward ?: "ไม่มี",
                     url = getUrl(it.id!!))
         }
     }
@@ -85,17 +86,22 @@ class StudyCenterServiceImpl : StudyCenterService {
     private fun convertRoyalty(knowledgeDevelopment: List<RoyalStudyCenterSource>): List<StudyCenter> {
 
         return knowledgeDevelopment.map {
-            StudyCenter(id = it.id!!.toLong(), name = it.name!!, detail = it.detail!!, address = it.address!!,
-                    type = it.type!!, mainType = "ศูนย์เรียนรู้ตามแนวพระราชดำริฯ",
-                    url = getUrl(it.id!!))
+            val location: String = if (it.location?.lat != null && it.location?.lng != null) it.location?.lat.toString() + "," + it.location?.lng else "ไม่มีข้อมูล"
+            StudyCenter(id = it.id!!.toLong(), name = it.name!!, url = getUrl(it.id!!), address = it.address!!,
+                    type = it.type!!, mainType = "ศูนย์เรียนรู้ตามแนวพระราชดำริฯ", location = location, year = it.year ?: 0, complete = getComplete(it.complete),
+                    status = getStatus(it.status),
+                    detail = it.detail!!)
         }
     }
 
     private fun convertOther(knowledgeOther: List<StudyCenterOtherSource>): List<StudyCenter> {
         return knowledgeOther.map {
-            StudyCenter(id = it.id!!.toLong(), name = it.name!!, detail = it.detail!!, address = it.address!!,
-                    type = it.type!!, mainType = "ศูนย์เรียนรู้อื่นๆ",
-                    url = getUrl(it.id!!))
+            val location: String = if (it.location?.lat != null && it.location?.lng != null) it.location?.lat.toString() + "," + it.location?.lng else "ไม่มีข้อมูล"
+            StudyCenter(id = it.id!!.toLong(), name = it.name!!, url = getUrl(it.id!!), address = it.address!!,
+                    type = it.type!!, mainType = "ศูนย์เรียนรู้อื่นๆ", organization = it.division ?: "", externalId = it.externalId, contact = it.coordinator ?: "",
+                    complete = getComplete(it.complete), status = getStatus(it.status), year = it.year ?: 0, award = it.reward ?: "",
+                    coordinator = it.contact, location = location,
+                    detail = it.detail!!)
         }
     }
 

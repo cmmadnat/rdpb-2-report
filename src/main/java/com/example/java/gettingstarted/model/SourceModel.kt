@@ -112,6 +112,8 @@ class StudyCenterOtherSource {
     var province: String? = null
 
     var complete: Boolean? = null
+    val externalId: String =""
+    val contact: String=""
 }
 
 data class Wrapper(var knowledgeEconomy: List<SufficiencyStudyCenterSource> = listOf()) {
