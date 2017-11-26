@@ -24,9 +24,6 @@ import net.sf.dynamicreports.jasper.builder.JasperReportBuilder
 import net.sf.dynamicreports.report.builder.DynamicReports
 import net.sf.dynamicreports.report.builder.DynamicReports.*
 import net.sf.dynamicreports.report.builder.style.StyleBuilders
-import net.sf.dynamicreports.report.constant.HorizontalTextAlignment
-import net.sf.dynamicreports.report.constant.PageOrientation
-import net.sf.dynamicreports.report.constant.PageType
 import net.sf.dynamicreports.report.exception.DRException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
@@ -40,8 +37,9 @@ import java.awt.Color.LIGHT_GRAY
 import net.sf.dynamicreports.report.builder.DynamicReports.stl
 import java.awt.Color
 import net.sf.dynamicreports.report.builder.DynamicReports.stl
-import net.sf.dynamicreports.report.constant.HorizontalAlignment
+import net.sf.dynamicreports.report.constant.*
 import org.springframework.http.HttpHeaders
+import org.springframework.http.MediaType
 
 
 @SpringBootApplication
@@ -59,7 +57,7 @@ open class HelloworldApplication {
     fun report(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllSufficiency()
-            val build = getReport1(list).toHtml(httpServletResponse.outputStream)
+            val build = getReport1(list).ignorePagination().toHtml(httpServletResponse.outputStream)
         } catch (e: DRException) {
             e.printStackTrace()
         } catch (e: IOException) {
@@ -86,6 +84,7 @@ open class HelloworldApplication {
             val build = getReport1(list)
                     .pageFooter(cmp.pageXofY())
                     .toPdf(httpServletResponse.outputStream)
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
         } catch (e: DRException) {
             e.printStackTrace()
         } catch (e: IOException) {
@@ -99,7 +98,7 @@ open class HelloworldApplication {
         try {
             val list: MutableList<StudyCenter> = getAllSufficiency()
             httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"report.xlsx\"")
-            val build = getReport1(list).toXlsx(httpServletResponse.outputStream)
+            val build = getReport1(list).ignorePagination().toXlsx(httpServletResponse.outputStream)
         } catch (e: DRException) {
             e.printStackTrace()
         } catch (e: IOException) {
