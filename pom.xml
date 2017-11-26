@@ -36,6 +36,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <appengine.maven.plugin>1.3.2</appengine.maven.plugin>
         <kotlin.version>1.1.61</kotlin.version>
+        <start-class>com.example.java.gettingstarted.HelloworldApplication</start-class>
     </properties>
 
     <dependencies>
