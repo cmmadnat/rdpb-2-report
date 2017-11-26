@@ -89,6 +89,7 @@ class StudyCenterServiceImpl : StudyCenterService {
             val location: String = if (it.location?.lat != null && it.location?.lng != null) it.location?.lat.toString() + "," + it.location?.lng else "ไม่มีข้อมูล"
             StudyCenter(id = it.id!!.toLong(), name = it.name!!, url = getUrl(it.id!!), address = it.address!!,
                     type = it.type!!, mainType = "ศูนย์เรียนรู้ตามแนวพระราชดำริฯ", location = location, year = it.year ?: 0, complete = getComplete(it.complete),
+                    organization = it.area!!,
                     status = getStatus(it.status),
                     detail = it.detail!!)
         }
