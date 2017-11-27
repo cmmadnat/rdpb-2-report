@@ -30,18 +30,22 @@ import net.sf.dynamicreports.report.exception.DRException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.web.servlet.ServletContextInitializer
+import org.springframework.boot.web.support.SpringBootServletInitializer
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.awt.Color
 import java.io.IOException
+import javax.servlet.ServletContext
 import javax.servlet.http.HttpServletResponse
 
 
 @SpringBootApplication
 @RestController
-open class HelloworldApplication {
+open class HelloworldApplication : SpringBootServletInitializer() {
+
     @RequestMapping("/")
     fun home(): String {
         return "Hello World!"
@@ -326,14 +330,10 @@ open class HelloworldApplication {
         return "Still surviving."
     }
 
-    companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-            SpringApplication.run(HelloworldApplication::class.java, *args)
-        }
-
-    }
 
     @Autowired lateinit var studyCenterService: StudyCenterService
 }
 
+fun main(args: Array<String>) {
+    SpringApplication.run(HelloworldApplication::class.java, *args)
+}
