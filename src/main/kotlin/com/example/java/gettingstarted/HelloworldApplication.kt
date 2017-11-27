@@ -30,7 +30,7 @@ import net.sf.dynamicreports.report.exception.DRException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.web.servlet.ServletContextInitializer
+import org.springframework.boot.builder.SpringApplicationBuilder
 import org.springframework.boot.web.support.SpringBootServletInitializer
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
@@ -38,7 +38,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.awt.Color
 import java.io.IOException
-import javax.servlet.ServletContext
 import javax.servlet.http.HttpServletResponse
 
 
@@ -217,7 +216,7 @@ open class HelloworldApplication : SpringBootServletInitializer() {
 
     }
 
-    val SARABUN = "Sarabun"
+    private val SARABUN = "Sarabun"
 
     private fun getReport1(sample: MutableList<StudyCenter>): JasperReportBuilder {
         val fontName = stl.style().setFontName(SARABUN).setFontSize(12)
@@ -330,6 +329,8 @@ open class HelloworldApplication : SpringBootServletInitializer() {
         return "Still surviving."
     }
 
+    override fun configure(builder: SpringApplicationBuilder): SpringApplicationBuilder =
+            builder.sources(HelloworldApplication::class.java)
 
     @Autowired lateinit var studyCenterService: StudyCenterService
 }
