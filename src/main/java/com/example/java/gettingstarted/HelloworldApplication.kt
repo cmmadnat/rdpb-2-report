@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletResponse
 
 @SpringBootApplication
 @RestController
-open class HelloworldApplication : SpringBootServletInitializer() {
+open class HelloworldApplication {
 
     @RequestMapping("/")
     fun home(): String {
@@ -329,12 +329,13 @@ open class HelloworldApplication : SpringBootServletInitializer() {
         return "Still surviving."
     }
 
-    override fun configure(builder: SpringApplicationBuilder): SpringApplicationBuilder =
-            builder.sources(HelloworldApplication::class.java)
+    companion object {
+        @JvmStatic
+        fun main(args: Array<String>) {
+            SpringApplication.run(HelloworldApplication::class.java, *args)
+        }
+    }
 
     @Autowired lateinit var studyCenterService: StudyCenterService
 }
 
-fun main(args: Array<String>) {
-    SpringApplication.run(HelloworldApplication::class.java, *args)
-}
