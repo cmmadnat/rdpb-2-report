@@ -275,7 +275,7 @@ open class HelloworldApplication {
                 .setTextStyle(fontName)
                 .setColumnTitleStyle(columnTitleStyle)
                 .highlightDetailEvenRows()
-                .title(cmp.text("ศูนย์เรียนรู้เศรษฐกิจพอเพียง").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
+                .title(cmp.text("ศูนย์เรียนรู้ตามแนวพระราชดำริฯ").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
     }
 
     private fun getReport3(sample: MutableList<StudyCenter>): JasperReportBuilder {
@@ -311,7 +311,7 @@ open class HelloworldApplication {
                 .setTextStyle(fontName)
                 .setColumnTitleStyle(columnTitleStyle)
                 .highlightDetailEvenRows()
-                .title(cmp.text("ศูนย์เรียนรู้เศรษฐกิจพอเพียง").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
+                .title(cmp.text("ศูนย์เรียนรู้อื่นๆ").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
     }
 
     /**
