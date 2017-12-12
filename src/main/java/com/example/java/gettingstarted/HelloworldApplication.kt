@@ -86,6 +86,7 @@ open class HelloworldApplication {
     fun report(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllSufficiency()
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_HTML.toString())
             getReport1(list).ignorePagination().toHtml(httpServletResponse.outputStream)
         } catch (e: DRException) {
             e.printStackTrace()
@@ -131,6 +132,7 @@ open class HelloworldApplication {
     fun report2(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllRoyalty()
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_HTML.toString())
             getReport2(list).ignorePagination().toHtml(httpServletResponse.outputStream)
         } catch (e: DRException) {
             e.printStackTrace()
@@ -175,6 +177,7 @@ open class HelloworldApplication {
     fun report3(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllOther()
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_HTML.toString())
             getReport3(list).ignorePagination().toHtml(httpServletResponse.outputStream)
         } catch (e: DRException) {
             e.printStackTrace()
