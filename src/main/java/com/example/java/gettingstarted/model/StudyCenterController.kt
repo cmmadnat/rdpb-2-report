@@ -51,12 +51,11 @@ class StudyCenterServiceImpl : StudyCenterService {
 
     override fun findAllOther(i: Int, i1: Int): List<StudyCenter> {
         val forObject = restTemplate.getForObject(
-                "$BASE_URL/api/search?page={page}&limit={limit}&type={type}&query={query}",
+                "$BASE_URL/api/search?page={page}&limit={limit}&type={type}",
                 Wrapper::class.java,
                 i,
                 i1,
-                2,
-                "NOT organization:\"กอ.รมน.กศน.\""
+                2
         )
         return convertOther(forObject.knowledgeOther)
     }
@@ -98,11 +97,11 @@ class StudyCenterServiceImpl : StudyCenterService {
     private fun convertOther(knowledgeOther: List<StudyCenterOtherSource>): List<StudyCenter> {
         return knowledgeOther.map {
             val location: String = if (it.location?.lat != null && it.location?.lng != null) it.location?.lat.toString() + "," + it.location?.lng else "ไม่มีข้อมูล"
-            StudyCenter(id = it.id!!.toLong(), name = it.name!!, url = getUrl(it.id!!), address = it.address!!,
-                    type = it.type!!, mainType = "ศูนย์เรียนรู้อื่นๆ", organization = it.division ?: "", externalId = it.externalId, contact = it.coordinator ?: "",
+            StudyCenter(id = it.id!!.toLong(), name = it.name!!, url = getUrl(it.id!!), address = it.address?:"",
+                    type = it.type?:"", mainType = "ศูนย์เรียนรู้อื่นๆ", organization = it.division ?: "", externalId = it.externalId, contact = it.coordinator ?: "",
                     complete = getComplete(it.complete), status = getStatus(it.status), year = it.year ?: 0, award = it.reward ?: "",
                     coordinator = it.contact, location = location,
-                    detail = it.detail!!)
+                    detail = it.detail?:"")
         }
     }
 
