@@ -101,10 +101,10 @@ open class HelloworldApplication {
     fun report1pdf(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllSufficiency()
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
             getReport1(list)
                     .pageFooter(cmp.pageXofY())
                     .toPdf(httpServletResponse.outputStream)
-            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
         } catch (e: DRException) {
             e.printStackTrace()
         } catch (e: IOException) {
@@ -147,10 +147,10 @@ open class HelloworldApplication {
     fun report2pdf(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllRoyalty()
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
             getReport2(list)
                     .pageFooter(cmp.pageXofY())
                     .toPdf(httpServletResponse.outputStream)
-            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
         } catch (e: DRException) {
             e.printStackTrace()
         } catch (e: IOException) {
@@ -192,10 +192,10 @@ open class HelloworldApplication {
     fun report3pdf(httpServletResponse: HttpServletResponse) {
         try {
             val list: MutableList<StudyCenter> = getAllOther()
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
             getReport3(list)
                     .pageFooter(cmp.pageXofY())
                     .toPdf(httpServletResponse.outputStream)
-            httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
         } catch (e: DRException) {
             e.printStackTrace()
         } catch (e: IOException) {
