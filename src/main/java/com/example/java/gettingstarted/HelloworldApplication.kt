@@ -102,6 +102,7 @@ open class HelloworldApplication {
         try {
             val list: MutableList<StudyCenter> = getAllSufficiency()
             httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"document.pdf\"")
             getReport1(list)
                     .pageFooter(cmp.pageXofY())
                     .toPdf(httpServletResponse.outputStream)
@@ -148,6 +149,7 @@ open class HelloworldApplication {
         try {
             val list: MutableList<StudyCenter> = getAllRoyalty()
             httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"document.pdf\"")
             getReport2(list)
                     .pageFooter(cmp.pageXofY())
                     .toPdf(httpServletResponse.outputStream)
@@ -193,6 +195,7 @@ open class HelloworldApplication {
         try {
             val list: MutableList<StudyCenter> = getAllOther()
             httpServletResponse.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF.type)
+            httpServletResponse.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"document.pdf\"")
             getReport3(list)
                     .pageFooter(cmp.pageXofY())
                     .toPdf(httpServletResponse.outputStream)
