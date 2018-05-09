@@ -233,6 +233,9 @@ open class HelloworldApplication {
         val columnTitleStyle = stl.style(boldCenteredStyle)
                 .setBorder(stl.pen1Point())
                 .setBackgroundColor(Color.LIGHT_GRAY)
+        val columnStyle = stl.style(fontName)
+                .setBorder(stl.pen1Point())
+
         sample.forEachIndexed { index: Int, studyCenter: StudyCenter -> studyCenter.index = index + 1 }
         return DynamicReports.report().columns(//add columns
                 //             title,     field name     data type
@@ -250,6 +253,7 @@ open class HelloworldApplication {
                 .setDataSource(sample)
                 .setTextStyle(fontName)
                 .setColumnTitleStyle(columnTitleStyle)
+                .setColumnStyle(columnStyle)
                 .highlightDetailEvenRows()
                 .title(cmp.text("ศูนย์เรียนรู้เศรษฐกิจพอเพียง").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
     }
@@ -265,6 +269,8 @@ open class HelloworldApplication {
         val columnTitleStyle = stl.style(boldCenteredStyle)
                 .setBorder(stl.pen1Point())
                 .setBackgroundColor(Color.LIGHT_GRAY)
+        val columnStyle = stl.style(fontName)
+                .setBorder(stl.pen1Point())
         sample.forEachIndexed { index: Int, studyCenter: StudyCenter -> studyCenter.index = index + 1 }
         return DynamicReports.report().columns(//add columns
                 //             title,     field name     data type
@@ -280,6 +286,7 @@ open class HelloworldApplication {
                 .setDataSource(sample)
                 .setTextStyle(fontName)
                 .setColumnTitleStyle(columnTitleStyle)
+                .setColumnStyle(columnStyle)
                 .highlightDetailEvenRows()
                 .title(cmp.text("ศูนย์เรียนรู้ตามแนวพระราชดำริฯ").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
     }
@@ -295,6 +302,8 @@ open class HelloworldApplication {
         val columnTitleStyle = stl.style(boldCenteredStyle)
                 .setBorder(stl.pen1Point())
                 .setBackgroundColor(Color.LIGHT_GRAY)
+        val columnStyle = stl.style(fontName)
+                .setBorder(stl.pen1Point())
         sample.forEachIndexed { index: Int, studyCenter: StudyCenter -> studyCenter.index = index + 1 }
         return DynamicReports.report().columns(//add columns
                 //             title,     field name     data type
@@ -316,6 +325,7 @@ open class HelloworldApplication {
                 .setDataSource(sample)
                 .setTextStyle(fontName)
                 .setColumnTitleStyle(columnTitleStyle)
+                .setColumnStyle(columnStyle)
                 .highlightDetailEvenRows()
                 .title(cmp.text("ศูนย์เรียนรู้อื่นๆ").setStyle(header)).setPageFormat(PageType.A4, PageOrientation.LANDSCAPE)
     }
